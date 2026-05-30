@@ -4,4 +4,7 @@
         <file>resource/login.png</file>
         <file>resource/login2.png</file>
     </qresource>
+    <qresource prefix="/">
+        <file>style/stylesheet.qss</file>
+    </qresource>
 </RCC>
