@@ -28,20 +28,29 @@ void RegisterDialog::on_capt_btn_clicked()
     auto email = ui->emailEdit->text();
     // 邮箱地址的正则表达式
     QRegularExpression regex(R"((\w+)(\.|_)?(\w*)@(\w+)(\.(\w+))+)");
-    // 执行正则表达式匹配
+    // 执行正则表达式匹配A
     bool match = regex.match(email).hasMatch();
     if(match){
         //发送http请求获取验证码
     }else{
         //提示邮箱不正确
-        showTip(tr("邮箱地址不正确"));
+        showTip(tr("邮箱地址不正确"), false);
     }
 }
 
-void RegisterDialog::showTip(QString str)
+void RegisterDialog::showTip(QString str, bool b_ok)
 {
+    //设置错误提示框状态
+    //加一步判断的原因：果你先写错了但是后来写对了tips要改回来
+    if(b_ok){
+        ui->err_tip->setProperty("state","nomal");
+    }else{
+        ui->err_tip->setProperty("state","err");
+    }
+
     ui->err_tip->setText(str);
-    ui->err_tip->setProperty("state","err");
+
+    //刷新一下qss
     repolish(ui->err_tip);
 }
 
